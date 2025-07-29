@@ -7,12 +7,12 @@ public class CompletPaymentDTO {
 
     private UUID correlationId;
     private Double amount;
-    private LocalDateTime receptAt;
+    private LocalDateTime receivedAt;
 
-    public CompletPaymentDTO(UUID correlationId, Double amount, LocalDateTime receptAt) {
+    public CompletPaymentDTO(UUID correlationId, Double amount, LocalDateTime receivedAt) {
         this.correlationId = correlationId;
         this.amount = amount;
-        this.receptAt = receptAt;
+        this.receivedAt = receivedAt;
     }
 
     public UUID getCorrelationId() {
@@ -32,11 +32,11 @@ public class CompletPaymentDTO {
     }
 
     public LocalDateTime getReceptAt() {
-        return receptAt;
+        return receivedAt;
     }
 
-    public void setReceptAt(LocalDateTime receptAt) {
-        this.receptAt = receptAt;
+    public void setReceptAt(LocalDateTime receivedAt) {
+        this.receivedAt = receivedAt;
     }
 
 }
