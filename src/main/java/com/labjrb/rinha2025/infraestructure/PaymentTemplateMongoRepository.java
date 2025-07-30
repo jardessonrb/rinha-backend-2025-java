@@ -40,7 +40,8 @@ public class PaymentTemplateMongoRepository {
 
         AggregationResults<SummaryModel> payments = mongoTemplate.aggregate(aggregateComplet, "payments", SummaryModel.class);
         Map<String, SummaryModel> collectMap      = payments.getMappedResults().stream().collect(Collectors.toMap(SummaryModel::id, Function.identity()));
-        return new SummaryDTO(collectMap.containsKey("default") ? new SummaryDefaultDTO(collectMap.get("default").totalRequests(), collectMap.get("default").totalAmount()) : null,
+        return new SummaryDTO(
+                collectMap.containsKey("default") ? new SummaryDefaultDTO(collectMap.get("default").totalRequests(), collectMap.get("default").totalAmount()) : null,
                 collectMap.containsKey("fallback") ? new SummaryFallbackDTO(collectMap.get("fallback").totalRequests(), collectMap.get("fallback").totalAmount()) : null
         );
     }

@@ -30,11 +30,8 @@ public class PaymentWorker {
         while (true){
             try {
                 CompletPaymentDTO payment = this.queue.take();
-                System.out.println("procesando pagamento");
-                Thread.sleep(1000);
                 PaymentDocument paymentDocument = new PaymentDocument("fallback", payment.getCorrelationId(), payment.getAmount(), payment.getReceptAt(), LocalDateTime.now());
                 paymentRepository.save(paymentDocument);
-                System.out.println("pagamento finalizado");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -10,9 +10,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class PaymentController {
@@ -30,14 +32,10 @@ public class PaymentController {
     }
 
     @GetMapping("/payments-summary")
-    public ResponseEntity<SummaryDTO> summary(@RequestParam(value = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date from,
-                                              @RequestParam(value = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date to){
-        SummaryDTO summary = new SummaryDTO(
-                new SummaryDefaultDTO(10, 10.0D),
-                new SummaryFallbackDTO(10, 15.5)
-        );
+    public ResponseEntity<SummaryDTO> summary(@RequestParam(value = "from", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant from,
+                                              @RequestParam(value = "to", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant to){
 
-        return ResponseEntity.ok(paymentService.paymentSummary(from, to));
+        return ResponseEntity.ok(paymentService.paymentSummary(Objects.nonNull(from) ? Date.from(from) : null, Objects.nonNull(to) ? Date.from(to) : null));
     }
 
     @GetMapping("/payments")
