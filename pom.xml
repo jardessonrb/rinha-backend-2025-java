@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.labjrb</groupId>
 	<artifactId>rinha2025</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>rinha2025</name>
 	<description>Rinha Backend 2025</description>
 	<url/>
