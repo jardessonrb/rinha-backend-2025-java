@@ -14,14 +14,14 @@ public class PaymentDocument {
     private String processor;
     private UUID correlationId;
     private Double amount;
-    private LocalDateTime receivedAt;
+    private LocalDateTime requestedAt;
     private LocalDateTime processedAt;
 
     public PaymentDocument(String id, UUID correlationId, Double amount, LocalDateTime receivedAt) {
         this.id = id;
         this.correlationId = correlationId;
         this.amount = amount;
-        this.receivedAt = receivedAt;
+        this.requestedAt = receivedAt;
     }
 
     public PaymentDocument(String id, String processor, UUID correlationId, Double amount, LocalDateTime receivedAt, LocalDateTime processedAt) {
@@ -29,7 +29,7 @@ public class PaymentDocument {
         this.processor = processor;
         this.correlationId = correlationId;
         this.amount = amount;
-        this.receivedAt = receivedAt;
+        this.requestedAt = receivedAt;
         this.processedAt = processedAt;
     }
 
@@ -37,7 +37,7 @@ public class PaymentDocument {
         this.processor = processor;
         this.correlationId = correlationId;
         this.amount = amount;
-        this.receivedAt = receivedAt;
+        this.requestedAt = receivedAt;
         this.processedAt = processedAt;
     }
 
@@ -65,7 +65,7 @@ public class PaymentDocument {
     }
 
     public LocalDateTime getReceivedAt() {
-        return receivedAt;
+        return requestedAt;
     }
 
     public LocalDateTime getProcessedAt() {

@@ -29,7 +29,7 @@ public class PaymentTemplateMongoRepository {
 
     public SummaryDTO paymentSummary(Date from, Date to){
         var aggregateMatch = Aggregation
-                .match(Criteria.where("processedAt").gte(from).lte(to));
+                .match(Criteria.where("requestedAt").gte(from).lte(to));
 
         var aggregateGroup = Aggregation
                 .group("processor")
@@ -41,8 +41,8 @@ public class PaymentTemplateMongoRepository {
         AggregationResults<SummaryModel> payments = mongoTemplate.aggregate(aggregateComplet, "payments", SummaryModel.class);
         Map<String, SummaryModel> collectMap      = payments.getMappedResults().stream().collect(Collectors.toMap(SummaryModel::id, Function.identity()));
         return new SummaryDTO(
-                collectMap.containsKey("default") ? new SummaryDefaultDTO(collectMap.get("default").totalRequests(), collectMap.get("default").totalAmount()) : null,
-                collectMap.containsKey("fallback") ? new SummaryFallbackDTO(collectMap.get("fallback").totalRequests(), collectMap.get("fallback").totalAmount()) : null
+                collectMap.containsKey("default") ? new SummaryDefaultDTO(collectMap.get("default").totalRequests(), collectMap.get("default").totalAmount()) : new SummaryDefaultDTO(0, 0.0),
+                collectMap.containsKey("fallback") ? new SummaryFallbackDTO(collectMap.get("fallback").totalRequests(), collectMap.get("fallback").totalAmount()) : new SummaryFallbackDTO(0, 0.0)
         );
     }
 }

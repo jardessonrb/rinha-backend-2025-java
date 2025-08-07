@@ -1,10 +1,5 @@
-FROM maven:3-openjdk-17-slim AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
-
-FROM eclipse-temurin:17-jdk-alpine
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
-EXPOSE 8080
+# Dockerfile
+FROM openjdk:17-jdk-alpine
+VOLUME /tmp
+COPY target/rinha2025-0.0.1.jar app.jar
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-XX:+UseG1GC", "-jar", "app.jar"]
